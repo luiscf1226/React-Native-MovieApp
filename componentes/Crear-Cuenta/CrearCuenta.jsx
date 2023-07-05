@@ -8,8 +8,48 @@ import CheckBox from "expo-checkbox";
 const CrearCuenta=()=>{
     const [agree, setAgree] = useState(false);
     const [agree2, setAgree2] = useState(false);
+    const [nombre, setNombre] = useState('');
+    const isValidName = (name) => {
+        const regex = /^[a-zA-Z]+$/;
+        return regex.test(name);
+      };
+    
+      const isValidEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      };
+    
+      const isValidPassword = (password) => {
+        
+        return password.length >= 8;
+      };
+    
+    
+    const handleNombreChange = (text) => {
+        setNombre(text);
+    };
+    const [apellido, setApellido] = useState('');
+
+    const handleApellidoChange = (text) => {
+        setApellido(text);
+    };
+    const [correo, setCorreo] = useState('');
+
+    const handleCorreoChange = (text) => {
+        setCorreo(text);
+    };
+    const [password, setPassword] = useState('');
+
+    const handlePasswordChange = (text) => {
+        setPassword(text);
+    };
+    const [password2, setPassword2] = useState('');
+
+    const handlePassword2Change = (text) => {
+        setPassword2(text);
+    };
     return (
-<KeyboardAwareScrollView style={{backgroundColor:'white',height:'100%'}} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
+    <KeyboardAwareScrollView style={{backgroundColor:'white',height:'100%'}} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
         <View style={{backgroundColor:'white',height:'100%'}}>
             <View>
                 <Text style={{padding:10}}>UNITEC</Text>
@@ -48,6 +88,8 @@ const CrearCuenta=()=>{
                         
                         
                     }}
+                    value={nombre}
+                    onChangeText={handleNombreChange}
                     placeholder="Nombre"
                     placeholderTextColor="#000" 
                         
@@ -66,6 +108,8 @@ const CrearCuenta=()=>{
                         
                         
                     }}
+                    value={apellido}
+                    onChangeText={handleApellidoChange}
                     placeholder="Apellido"
                     placeholderTextColor="#000" 
                         
@@ -84,6 +128,8 @@ const CrearCuenta=()=>{
                         
                         
                     }}
+                    value={correo}
+                    onChangeText={handleCorreoChange}
                     placeholder="Correo"
                     placeholderTextColor="#000" 
                         
@@ -103,6 +149,8 @@ const CrearCuenta=()=>{
                         
                         
                     }}
+                    value={password}
+                    onChangeText={handlePasswordChange}
                     placeholder="Password"
                     placeholderTextColor="#000" 
                         
@@ -122,6 +170,8 @@ const CrearCuenta=()=>{
                         
                         
                     }}
+                    value={password2}
+                    onChangeText={handlePassword2Change}
                     placeholder="Repeat Password"
                     placeholderTextColor="#000" 
                         
@@ -164,7 +214,28 @@ const CrearCuenta=()=>{
          <View style={{display: "flex",
                 flexDirection: "row",
                 alignContent: "center",}}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity 
+                style={styles.button}
+                onPress={()=>{
+                    if (nombre === "" || apellido === "" || correo === "" || password === "" || password2 === "") {
+                        alert('Ningún campo puede estar vacío');
+                      } else if (!isValidName(nombre)) {
+                        alert('El nombre contiene caracteres especiales o espacios');
+                      } else if (!isValidName(apellido)) {
+                        A('El apellido contiene caracteres especiales o espacios');
+                      } else if (!isValidEmail(correo)) {
+                        alert('El correo electrónico no es válido');
+                      } else if (password !== password2) {
+                        alert('Las contraseñas no coinciden');
+                      } else if (!isValidPassword(password)) {
+                        alert('La contraseña no cumple con los requisitos');
+                      } else if (agree === false || agree2 === false) {
+                        alert('Debe aceptar todos los términos');
+                      } else {
+                        alert('Procede');
+                      }
+                }}
+            >
                 <Text style={styles.buttonText}>Crear Cuenta</Text>
             </TouchableOpacity>
 
