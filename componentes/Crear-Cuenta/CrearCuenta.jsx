@@ -100,6 +100,8 @@ const CrearCuenta=()=>{
                     placeholderTextColor="#000" 
                         
                 />  
+                <View></View>
+                <View></View>
                 <TextInput  
                     style={{
                         height: 45,
