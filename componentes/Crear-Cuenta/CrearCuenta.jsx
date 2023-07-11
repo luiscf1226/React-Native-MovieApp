@@ -5,7 +5,13 @@ import imagenLogo from '../../images/download.png'
 import Checkbox from '@react-native-community/checkbox';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CheckBox from "expo-checkbox";
+
+
+import VerPeliculas from '../VerPeliculas/VerPeliculas';
+
 const CrearCuenta=()=>{
+ 
+      
     const [agree, setAgree] = useState(false);
     const [agree2, setAgree2] = useState(false);
     const [nombre, setNombre] = useState('');
@@ -233,6 +239,7 @@ const CrearCuenta=()=>{
                         alert('Debe aceptar todos los términos');
                       } else {
                         alert('Procede');
+                       
                       }
                 }}
             >
