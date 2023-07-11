@@ -1,13 +1,25 @@
 import React from "react";
 import {View,Text} from 'react-native';
-import CrearCuenta from '../componentes/Crear-Cuenta/CrearCuenta.jsx'
-import VerPeliculas from "../componentes/VerPeliculas/VerPeliculas.jsx";
 
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+import HomePage from "../componentes/home/HomePage";
+import SignIn from "../componentes/sign_in/SignIn";
+import CrearCuenta from "../componentes/Crear-Cuenta/CrearCuenta";
+import VerPeliculas from '../componentes/VerPeliculas/VerPeliculas';
+
+const Stack = createStackNavigator();
 const Home = ()=>{
     return (
-        <View>
-            <VerPeliculas/>
-        </View>
-    )
+      
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomePage} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="CrearCuenta" component={CrearCuenta}/>
+            <Stack.Screen name="VerPeliculas" component={VerPeliculas}/>
+          </Stack.Navigator>
+       
+      );
 }
 export default Home;
