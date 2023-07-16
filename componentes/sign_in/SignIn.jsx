@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import {
     View,
     Text,
@@ -55,49 +56,63 @@ const SignIn = () => {
         setIsFocusedPass(false);
     };
 
-    const validateInfoLogIn = () => {
-        var success = false;
-
+    const validateInfoLogIn = async () => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        //Check if email and password is not empty
-        if (email != "" && contrasenia != "") {
-            // Check if the email matches the pattern
-            if (emailPattern.test(email)) {
-                Dialog.show({
-                    type: ALERT_TYPE.SUCCESS,
-                    title: 'Inicio de sesión exitoso',
-                    textBody: '¡Has iniciado sesión correctamente!',
-                    button: 'Continuar',
-                });
-
-                navigation.navigate('VerPeliculas');
-            } else {
-                //reset consts if login failed
-                setContrasenia("");
-                setEmail("");
-
-                Dialog.show({
-                    type: ALERT_TYPE.DANGER,
-                    title: 'Error al iniciar sesión',
-                    textBody: 'No se pudo iniciar sesión. Por favor, verifica tus credenciales e intenta nuevamente.',
-                    button: 'Aceptar',
-                });
-            }
-        } else {
-            Dialog.show({
-                type: ALERT_TYPE.WARNING,
+      
+        // Check if email and password are not empty
+        if (email !== "" && contrasenia !== "") {
+          // Check if the email matches the pattern
+          if (emailPattern.test(email)) {
+            const url = 'https://nodejs-postgressserver-filmtrip-production.up.railway.app/checkUsuario'; // Replace with your API endpoint
+      
+            const requestData = {
+              Correo: email,
+              Password: contrasenia
+            };
+      
+            try {
+              const response = await axios.post(url, requestData);
+              console.log('Response:', response.data);
+              // Handle the successful authentication based on your logic
+              Dialog.show({
+                type: ALERT_TYPE.SUCCESS,
+                title: 'Inicio de sesión exitoso',
+                textBody: '¡Has iniciado sesión correctamente!',
+                button: 'Continuar',
+              });
+              navigation.navigate('VerPeliculas');
+            } catch (error) {
+              console.error('Error:', error);
+              // Handle the authentication failure based on your logic
+              setContrasenia("");
+              setEmail("");
+              Dialog.show({
+                type: ALERT_TYPE.DANGER,
                 title: 'Error al iniciar sesión',
-                textBody: 'Por favor, ingresa tu email y contraseña para iniciar sesión.',
+                textBody: 'No se pudo iniciar sesión. Por favor, verifica tus credenciales e intenta nuevamente.',
                 button: 'Aceptar',
+              });
+            }
+          } else {
+            // Reset consts if login failed
+            setContrasenia("");
+            setEmail("");
+            Dialog.show({
+              type: ALERT_TYPE.DANGER,
+              title: 'Error al iniciar sesión',
+              textBody: 'No se pudo iniciar sesión. Por favor, verifica tus credenciales e intenta nuevamente.',
+              button: 'Aceptar',
             });
-
+          }
+        } else {
+          Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: 'Error al iniciar sesión',
+            textBody: 'Por favor, ingresa tu email y contraseña para iniciar sesión.',
+            button: 'Aceptar',
+          });
         }
-
-
-
-
-    }
+      };
     if (!fontsLoaded) {
         // Fonts are still loading, show a loading indicator or fallback text
         return <Text>Loading...</Text>;
