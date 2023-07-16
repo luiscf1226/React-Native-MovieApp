@@ -3,11 +3,6 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import ImagenLogo from '../../images/download.png'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SliderBox } from "react-native-image-slider-box";
-import Imagen1 from '../../images/chciamovie.b95334e287e458025aaf.jpg'
-import Imagen2 from '../../images/nopmovie.98a3de6e86247754dfb4.jpg'
-import Imagen3 from '../../images/spidermovie.a499d97034d6dc04d7bf.png'
-import Imagen4 from '../../images/superquien.869904e1956c3d0e07fd.jpg'
-import Imagen5 from '../../images/tadeomovie.400bb3a73704c6421414.jpg'
 import Footnote from "../Footnote/Footnote";
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from "react";
