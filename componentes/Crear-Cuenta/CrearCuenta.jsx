@@ -5,13 +5,47 @@ import imagenLogo from '../../images/download.png'
 import Checkbox from '@react-native-community/checkbox';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CheckBox from "expo-checkbox";
-
+import axios from 'axios'
 
 import VerPeliculas from '../VerPeliculas/VerPeliculas';
 
 const CrearCuenta=()=>{
- 
-      
+    const handleRegister = async () => {
+        if (nombre === "" || apellido === "" || correo === "" || password === "" || password2 === "") {
+          alert('Ningún campo puede estar vacío');
+        } else if (!isValidName(nombre)) {
+          alert('El nombre contiene caracteres especiales o espacios');
+        } else if (!isValidName(apellido)) {
+          alert('El apellido contiene caracteres especiales o espacios');
+        } else if (!isValidEmail(correo)) {
+          alert('El correo electrónico no es válido');
+        } else if (password !== password2) {
+          alert('Las contraseñas no coinciden');
+        } else if (!isValidPassword(password)) {
+          alert('La contraseña no cumple con los requisitos');
+        } else if (agree === false || agree2 === false) {
+          alert('Debe aceptar todos los términos');
+        } else {
+          // Send the request to the server
+          const url = 'https://nodejs-postgressserver-filmtrip-production.up.railway.app/insertUsuario'; // Replace with your API endpoint
+    
+          try {
+            const response = await axios.post(url, {
+              Nombre: nombre,
+              Apellido: apellido,
+              Correo: correo,
+              Password: password,
+              Password2: password2
+            });
+    
+            console.log('Response:', response.data);
+            alert('Cuenta creada');
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Ocurrió un error al crear la cuenta'+error);
+          }
+        }
+      };
     const [agree, setAgree] = useState(false);
     const [agree2, setAgree2] = useState(false);
     const [nombre, setNombre] = useState('');
@@ -224,26 +258,7 @@ const CrearCuenta=()=>{
                 alignContent: "center",}}>
             <TouchableOpacity 
                 style={styles.button}
-                onPress={()=>{
-                    if (nombre === "" || apellido === "" || correo === "" || password === "" || password2 === "") {
-                        alert('Ningún campo puede estar vacío');
-                      } else if (!isValidName(nombre)) {
-                        alert('El nombre contiene caracteres especiales o espacios');
-                      } else if (!isValidName(apellido)) {
-                        A('El apellido contiene caracteres especiales o espacios');
-                      } else if (!isValidEmail(correo)) {
-                        alert('El correo electrónico no es válido');
-                      } else if (password !== password2) {
-                        alert('Las contraseñas no coinciden');
-                      } else if (!isValidPassword(password)) {
-                        alert('La contraseña no cumple con los requisitos');
-                      } else if (agree === false || agree2 === false) {
-                        alert('Debe aceptar todos los términos');
-                      } else {
-                        alert('Procede');
-                       
-                      }
-                }}
+                onPress={handleRegister}
             >
                 <Text style={styles.buttonText}>Crear Cuenta</Text>
             </TouchableOpacity>
