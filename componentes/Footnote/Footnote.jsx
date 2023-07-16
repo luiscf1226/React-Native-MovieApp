@@ -5,10 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const Footnote =()=>{
     return(
         <View style={{ position: 'absolute',
-        bottom: 0,
+        bottom:0 ,
         left: 0,
         right: 0,
-        height: 90,}}>
+        height: 90, backgroundColor: "white"}}>
              <View style={{ width: '100%',
                 height: 1,
                 marginTop:5,

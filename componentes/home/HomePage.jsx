@@ -24,7 +24,7 @@ const HomePage = () => {
                 }}
             />
             <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: "rgb(255,254,254)" }}>
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgb(255,254,254)", width: "100%", height: "100%", marginTop: "30%" }}>
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgb(255,254,254)", width: "100%", height: "100%" }}>
                     <Text style={{
                         "color": "rgb(46, 48, 84)",
                         "textAlign": "center",
